@@ -1,7 +1,7 @@
 {
   "name": "auth-app",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "test": "jest",
     "lint": "eslint .",
-     "postinstall": "npm rebuild"
+    "postinstall": "npm rebuild"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.4",
@@ -30,7 +30,7 @@
     "sonner": "^2.0.4",
     "tailwind-merge": "^3.3.0",
     "tailwindcss": "^4.1.8",
-    "rollup":"3.29.1"
+    "rollup": "3.29.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
