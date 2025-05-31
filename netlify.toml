@@ -1,6 +1,6 @@
 [build]
 base = "auth-app"
-publish = "auth-app/dist"
+publish = "dist"
 command = "npm install && npm run build"
 
 [functions]
