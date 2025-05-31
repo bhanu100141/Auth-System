@@ -1,4 +1,4 @@
 [build]
 base = "auth-app"
 command = "npm run build"
-publish = "auth-app/dist"
+publish = "dist"
