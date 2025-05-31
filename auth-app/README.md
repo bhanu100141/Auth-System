@@ -1,54 +1,122 @@
-# React + TypeScript + Vite
+# Authentication System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-featured React application demonstrating a modern authentication system with protected routes, Redux state management, and a task manager tool. The project includes user signup, login, logout, dashboard, and a fully functional task management page with smooth Tailwind CSS animations and transitions.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **User Authentication**
+  - Signup with name, email, password
+  - Login with email and password
+  - Logout functionality
+  - Protected routes (Dashboard & Tools pages accessible only after login)
+  - Authentication state managed with Redux Toolkit
+  - User data persisted in localStorage (simulated backend)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Dashboard**
+  - Personalized welcome message
+  - Logout button with animation
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- **Task Manager (Tools)**
+  - Add, update, delete tasks with title, description, and completion status
+  - Filter tasks by All, Pending, and Completed
+  - Smooth animations and transitions on task items and buttons
+  - State management via Redux
+  - Simulated API calls with async delays
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **UI & Styling**
+  - Tailwind CSS for styling and responsiveness
+  - Smooth hover, focus, and click transitions
+  - Dark-themed task manager with animated states
+  - Sonner toast notifications for user feedback
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## Tech Stack
+
+- React (with Hooks & Functional Components)
+- Redux Toolkit for state management
+- React Router v6 for routing and protected routes
+- Tailwind CSS for styling and animations
+- Sonner for toast notifications
+- JavaScript / TypeScript (adjust based on your usage)
+- LocalStorage for user and task persistence (simulated backend)
+
+---
+
+###  Install dependencies
+
+npm install
+
+## Run the development server
+
+npm start
+
+## Project Structure
+
+src/
+├── components/
+│   ├── ui/                  # Reusable UI components (Button, Input, Label)
+├── features/
+│   ├── auth/                # Auth slice and logic
+│   ├── tools/               # Task manager slice and logic
+├── pages/
+│   ├── Dashboard.tsx        # Dashboard page
+│   ├── Login.tsx            # Login page
+│   ├── Signup.tsx           # Signup page
+│   ├── Tools.tsx            # Task Manager page
+├── services/
+│   ├── api.ts               # Simulated API calls
+├── store/
+│   ├── store.ts             # Redux store setup
+├── App.tsx                  # Main app and routes
+├── index.tsx                # React entry point
+
+## Usage
+
+Signup: Create a new account with name, email, and password.
+
+Login: Use registered email and password to login.
+
+Dashboard: View welcome message and logout.
+
+Tools: Manage your tasks with add, update (toggle completed), delete, and filter functionality.
+
+Logout: Clears authentication state and redirects to login.
+
+## Styling & Animations
+
+Tailwind CSS classes with custom color palettes
+
+Smooth button hover and active states with transitions
+
+Animated task item entry and state toggles
+
+Toast notifications for errors and success messages
+
+Responsive layout for mobile and desktop
+
+## Notes
+
+This project uses localStorage as a simulated backend. Data persists in your browser.
+
+Authentication token is randomly generated and stored in Redux state (not secure for production).
+
+Replace the API simulation with real backend endpoints as needed.
+
+## Future Improvements
+
+Add real backend authentication (JWT, OAuth)
+
+Secure password storage (hashing)
+
+Improve accessibility (ARIA attributes)
+
+Add task due dates and priorities
+
+Dark/light theme toggle
+
+###  Contact
+
+Created by Bhanu Prasad Vepakayala - feel free to reach out via [bhanu100141@gmail.com] or GitHub Profile => https://github.com/bhanu100141
