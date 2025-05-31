@@ -4,8 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "start": "react-scripts start",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && react-scripts build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -24,6 +27,7 @@
     "react-dom": "^19.1.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^6.30.1",
+    "react-script": "^2.0.5",
     "redux-persist": "^6.0.0",
     "sonner": "^2.0.4",
     "tailwind-merge": "^3.3.0",
