@@ -1,8 +1,7 @@
 [build]
-  base = "auth-app"
-  command = "npm run build"
-  publish = "dist"
+base = "auth-app"
+publish = "auth-app/dist"
+command = "npm install && npm run build"
 
-[build.environment]
-  NODE_VERSION = "20"
-  NODE_OPTIONS = "--max_old_space_size=2048"
+[functions]
+directory = "netlify/functions"

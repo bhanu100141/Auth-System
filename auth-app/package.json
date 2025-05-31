@@ -8,8 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "jest",
-    "lint": "eslint .",
-    "postinstall": "npm rebuild"
+    "lint": "eslint ."
+    
   },
   "dependencies": {
     "@headlessui/react": "^2.2.4",
