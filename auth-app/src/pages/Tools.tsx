@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { toast, Toaster } from 'sonner';
 import { Button } from '@/components/ui/button';
 
@@ -10,14 +10,22 @@ type Task = {
 };
 
 const Tools: React.FC = () => {
+  const currentUser = JSON.parse(localStorage.getItem('user') || 'null');
+  const email = currentUser?.email;
+  const tasksKey = `tasks_${email}`;
+
   const [tasks, setTasks] = useState<Task[]>(() => {
-    const stored = localStorage.getItem('tasks');
+    if (!email) return [];
+    const stored = localStorage.getItem(tasksKey);
     return stored ? JSON.parse(stored) : [];
   });
 
   const [newTitle, setNewTitle] = useState('');
   const [newDescription, setNewDescription] = useState('');
   const [filter, setFilter] = useState<'all' | 'pending' | 'completed'>('all');
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [editedTitle, setEditedTitle] = useState('');
+  const [editedDescription, setEditedDescription] = useState('');
 
   const filtered = tasks.filter((task) => {
     if (filter === 'all') return true;
@@ -27,7 +35,9 @@ const Tools: React.FC = () => {
 
   const saveTasks = (newTasks: Task[]) => {
     setTasks(newTasks);
-    localStorage.setItem('tasks', JSON.stringify(newTasks));
+    if (email) {
+      localStorage.setItem(tasksKey, JSON.stringify(newTasks));
+    }
   };
 
   const handleAddTask = () => {
@@ -41,8 +51,7 @@ const Tools: React.FC = () => {
       description: newDescription.trim(),
       completed: false,
     };
-    const newTasks = [newTask, ...tasks];
-    saveTasks(newTasks);
+    saveTasks([newTask, ...tasks]);
     setNewTitle('');
     setNewDescription('');
     toast.success('Task added');
@@ -59,7 +68,35 @@ const Tools: React.FC = () => {
       task.id === id ? { ...task, completed: !task.completed } : task
     );
     saveTasks(newTasks);
+    toast.success('Task updated');
   };
+
+  const startEditing = (task: Task) => {
+    setEditingId(task.id);
+    setEditedTitle(task.title);
+    setEditedDescription(task.description);
+  };
+
+  const saveEdit = (id: number) => {
+    if (!editedTitle.trim() || !editedDescription.trim()) {
+      toast.error('Both fields are required');
+      return;
+    }
+    const newTasks = tasks.map((task) =>
+      task.id === id
+        ? { ...task, title: editedTitle.trim(), description: editedDescription.trim() }
+        : task
+    );
+    saveTasks(newTasks);
+    setEditingId(null);
+    toast.success('Task updated');
+  };
+
+  useEffect(() => {
+    if (!email) {
+      setTasks([]);
+    }
+  }, [email]);
 
   return (
     <div className="container">
@@ -99,38 +136,71 @@ const Tools: React.FC = () => {
       </div>
 
       <ul className="task-list">
-        {filtered.length === 0 && (
-          <p className="no-tasks">No tasks found.</p>
-        )}
+        {filtered.length === 0 && <p className="no-tasks">No tasks found.</p>}
         {filtered.map((task) => (
-          <li
-            key={task.id}
-            className={`task-item ${task.completed ? 'completed' : ''}`}
-          >
-            <div className="task-content">
-              <h3
-                className="task-title"
-                onClick={() => toggleCompleted(task.id)}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') toggleCompleted(task.id);
-                }}
-              >
-                {task.title}
-              </h3>
-              <p className="task-desc">{task.description}</p>
-            </div>
-            <div className="task-actions">
-              <Button
-                variant="destructive"
-                size="sm"
-                onClick={() => handleDelete(task.id)}
-                className="delete-button"
-                aria-label={`Delete task ${task.title}`}
-              >
-                Delete
-              </Button>
+          <li key={task.id} className={`task-item ${task.completed ? 'completed' : ''}`}>
+            <div className="flex items-start gap-4 w-full">
+              {/* Checkbox at the start */}
+              <input
+                type="checkbox"
+                checked={task.completed}
+                onChange={() => toggleCompleted(task.id)}
+                className="mt-1 w-5 h-5"
+              />
+
+              {/* Task Content */}
+              <div className="flex-1">
+                {editingId === task.id ? (
+                  <div
+                    className="edit-inputs"
+                    style={{
+                      display: 'flex',
+                      gap: '12px',
+                      alignItems: 'center',
+                      flexWrap: 'wrap',
+                    }}
+                  >
+                    <input
+                      type="text"
+                      className="input"
+                      style={{ marginBottom: 0, flex: '1 1 200px' }}
+                      value={editedTitle}
+                      onChange={(e) => setEditedTitle(e.target.value)}
+                    />
+                    <textarea
+                      className="input"
+                      style={{ marginBottom: 0, flex: '1 1 300px', minHeight: '60px', resize: 'vertical' }}
+                      value={editedDescription}
+                      onChange={(e) => setEditedDescription(e.target.value)}
+                    />
+                  </div>
+                ) : (
+                  <>
+                    <h3 className="task-title">{task.title}</h3>
+                    <p className="task-desc">{task.description}</p>
+                  </>
+                )}
+              </div>
+
+              {/* Actions */}
+              <div className="flex flex-col gap-2">
+                {editingId === task.id ? (
+                  <Button size="sm" onClick={() => saveEdit(task.id)}>
+                    Save
+                  </Button>
+                ) : (
+                  <Button size="sm" variant="secondary" onClick={() => startEditing(task)}>
+                    Edit
+                  </Button>
+                )}
+                <Button
+                  size="sm"
+                  variant="destructive"
+                  onClick={() => handleDelete(task.id)}
+                >
+                  Delete
+                </Button>
+              </div>
             </div>
           </li>
         ))}
