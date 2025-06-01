@@ -45,8 +45,9 @@ export default function Login() {
   };
 
   return (
+    <div className='login-wrapper'>
     <div
-      className="max-w-md mx-auto mt-20 p-8 border border-gray-300 rounded-lg shadow-lg bg-white text-black
+      className=" login-card max-w-md mx-auto mt-20 p-8 border border-gray-300 rounded-lg shadow-lg bg-white text-black
       animate-fadeIn login-card"
     >
       <Toaster position="top-right" />
@@ -94,6 +95,7 @@ export default function Login() {
           </Button>
         </div>
       </form>
+    </div>
     </div>
   );
 }

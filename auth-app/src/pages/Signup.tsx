@@ -45,8 +45,9 @@ export default function Signup() {
   };
 
   return (
+    <div className='signup-wrapper'>
     <div
-      className="
+      className=" signup-card
         max-w-md mx-auto mt-20 p-8 border border-gray-300 rounded-xl shadow-xl
         bg-white text-gray-900
         transform transition-all duration-700 ease-in-out
@@ -141,6 +142,7 @@ export default function Signup() {
           Sign Up
         </Button>
       </form>
+    </div>
     </div>
   );
 }

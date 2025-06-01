@@ -17,8 +17,9 @@ export default function Dashboard() {
   };
 
   return (
+    <div className='dashboard-wrapper'>
     <div
-  className="max-w-xl mx-auto mt-20 p-8 border rounded-lg shadow-lg bg-white text-black
+  className=" dashboard-card max-w-xl mx-auto mt-20 p-8 border rounded-lg shadow-lg bg-white text-black
     animate-fadeIn
     transition-opacity duration-700 ease-out"
 >
@@ -37,6 +38,7 @@ export default function Dashboard() {
       Logout
     </Button>
   </div>
+</div>
 </div>
 
   );
