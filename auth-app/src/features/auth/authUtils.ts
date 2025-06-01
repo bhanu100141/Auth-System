@@ -4,7 +4,6 @@ export interface User {
   password: string;
   name?: string;
   token? : string;
-  // add other user fields
 }
 
 export function validateUser(email: string, password: string): User | null {
