@@ -555,7 +555,7 @@ nav a.signup:focus {
   padding: 16px;
   border-radius: 12px;
   display: flex;
-  flex-direction: ;
+  flex-direction: column;
   gap: 12px;
   cursor: pointer;
   transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
